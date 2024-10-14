@@ -69,7 +69,9 @@ func (cc *CommandController) Run() {
 			continue
 		}
 
-		command := args[0]
+		command := strings.TrimSpace(args[0])
+
+		command = strings.ToLower(command)
 
 		cmdTestFunc := cc.commands[command]
 
