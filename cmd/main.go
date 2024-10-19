@@ -1,17 +1,25 @@
 package main
 
 import (
-	"microwave/controllers"
-	"microwave/models"
-	"microwave/services"
+	"github.com/gin-gonic/gin"
+	"log"
+	"microwave-service/internal/app/controllers"
+	"microwave-service/internal/infrastructure/db"
+	"microwave-service/internal/infrastructure/di"
 )
 
 func main() {
-	microwave := models.NewMicrowave()
+	database := db.InitDB()
 
-	microwaveService := services.NewMicrowaveService(microwave)
+	container := di.NewContainer(database)
 
-	commandController := controllers.NewCommandController(microwaveService)
+	router := gin.Default()
 
-	commandController.Run()
+	controllers.RegisterRoutes(router, container.MicrowaveService)
+
+	routerRunningErr := router.Run()
+
+	if routerRunningErr != nil {
+		log.Fatalf("failed to run handller: %v", routerRunningErr)
+	}
 }

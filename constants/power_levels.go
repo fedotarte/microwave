@@ -8,7 +8,7 @@ const (
 	PowerLevel1200 PowerLevel = 1200
 )
 
-var ValidPowerLevels = []PowerLevel{
+var ValidPowerLevels = [3]PowerLevel{
 	PowerLevel600,
 	PowerLevel800,
 	PowerLevel1200,

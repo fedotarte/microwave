@@ -1,0 +1,5 @@
+linters-settings:
+  exclude-rules:
+    - path: "golang.org/x/sync/semaphore"
+      linters:
+        - errcheck
